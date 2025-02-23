@@ -91,7 +91,7 @@ def lambda_handler(event, context):
         try:
             logger.info("Fetching leaderboard")
             response = table.scan(
-                AttributesToGet=['email', 'nonce', 'leading_zeros']
+                AttributesToGet=['email', 'nonce', 'leading_zeros', 'timestamp']
             )
             submissions = response['Items']
 
@@ -100,13 +100,15 @@ def lambda_handler(event, context):
                 {
                     'email': f"{sub['email'][0]}***@{sub['email'].split('@')[1]}" if '@' in sub['email'] else sub['email'],
                     'nonce': sub['nonce'],
-                    'leading_zeros': sub['leading_zeros']
+                    'leading_zeros': sub['leading_zeros'],
+                    'timestamp': sub['timestamp']
                 }
                 for sub in submissions
             ]
 
             # Sort by leading_zeros in descending order
-            anonymized_submissions.sort(key=lambda x: x['leading_zeros'], reverse=True)
+            anonymized_submissions.sort(key=lambda x: (-x['leading_zeros'], x['timestamp']))
+            anonymized_submissions = anonymized_submissions[:10]
             logger.info(f"Anonymized submissions: {anonymized_submissions}")
             logger.info(f"Returning leaderboard with {len(anonymized_submissions)} entries")
             return {
