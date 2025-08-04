@@ -141,6 +141,85 @@
         .leaderboard-table tr:hover {
             background-color: #e9ecef;
         }
+        .bitcoin-quotes {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        .bitcoin-quotes h2 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .bitcoin-quotes > p {
+            font-size: 16px;
+            color: #444;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .quote-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .quote-item {
+            padding: 15px;
+            background-color: white;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .quote-item p {
+            margin: 0 0 10px 0;
+            font-style: italic;
+            color: #333;
+            text-align: left;
+        }
+        .quote-item cite {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            text-align: right;
+            font-style: normal;
+        }
+        .note {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #a9e5f5;
+            border-radius: 6px;
+            border: 1px solid #ffeeba;
+        }
+        .bitcoin-symbol {
+            position: absolute;
+            font-size: 100px; /* Large size for visibility */
+            color: #f7931a; /* Bitcoin orange color */
+            opacity: 0.2; /* Slightly transparent to not overpower content */
+            animation: rotate 20s linear infinite; /* Continuous rotation */
+            pointer-events: none; /* Prevents interaction with the symbols */
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Adjust for vertical centering */
+        }
+
+        .left-symbol {
+            left: 5%; /* Position in the left blank space */
+        }
+
+        .right-symbol {
+            right: 5%; /* Position in the right blank space */
+        }
+
+        /* Rotation animation */
+        @keyframes rotate {
+            from {
+                transform: translateY(-50%) rotate(0deg);
+            }
+            to {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
         /* Responsive design */
         @media (max-width: 768px) {
             .container {
@@ -159,24 +238,50 @@
                 width: 150px;
                 padding: 10px;
             }
-            #hashResult, .leaderboard {
+            #hashResult, .leaderboard, .bitcoin-quotes {
                 padding: 10px;
             }
             .leaderboard-table th, .leaderboard-table td {
                 padding: 8px;
                 font-size: 12px;
             }
+            .bitcoin-quotes h2 {
+                font-size: 20px;
+            }
+            .bitcoin-quotes > p {
+                font-size: 14px;
+            }
+            .quote-item {
+                padding: 10px;
+            }
+            .quote-item p {
+                font-size: 14px;
+            }
+            .quote-item cite {
+                font-size: 12px;
+            }
+
+            
+
+/* Hide symbols on smaller screens */
+@media (max-width: 1000px) {
+    .bitcoin-symbol {
+        display: none;
+    }
+}
         }
     </style>
 </head>
 <body>
+    <div class="bitcoin-symbol left-symbol">₿</div>
+    <div class="bitcoin-symbol right-symbol">₿</div>
     <div class="container">
         <h1>Bitcoin Pizza Day</h1>
-        <p>Hi, This a competition arranged for Bitcoin Pizza Day. So what is a Bitcoin Pizza day celebrated for?</p>
-        <p>On May 22, 2010, a programmer named Laszlo Hanyecz made history by trading 10,000 Bitcoin for two Papa John's pizzas—an event now celebrated annually as Bitcoin Pizza Day. This groundbreaking transaction marked the first real-world purchase using Bitcoin, proving its potential as a digital currency. What started as a $41 meal is now a legendary tale, with those 10,000 BTC worth hundreds of millions today, symbolizing Bitcoin's incredible journey from obscurity to global phenomenon.</p>
+        <p>Hi! This is a competition organized for Bitcoin Pizza Day. So, what is Bitcoin Pizza Day celebrated for?</p>
+        <p>On May 22, 2010, a programmer named Laszlo Hanyecz made history by trading 10,000 Bitcoin for two Papa John's pizzas—an event now celebrated annually as Bitcoin Pizza Day. This groundbreaking transaction marked the first real-world purchase using Bitcoin, proving its potential as a digital currency. What started as a $41 meal is now a legendary tale, with those 10,000 BTC worth nearly billion dollars today, symbolizing Bitcoin's incredible journey from obscurity to global phenomenon.</p>
 
-        <div class="competition">How to compete?</div>
-        <p>This competition is inspired by Bitcoin's proof-of-work system! In Bitcoin, miners find a nonce—a special number—that, when combined with the previous block's hash and processed through a hash function, produces a result with a specific number of leading zeros. In this competition, you must find a number (your nonce) that, when hashed with your email address using SHA-256, generates a hash with 'n' leading zeros. At the end of May 22, 2025, whoever has submitted an email + nonce combination resulting in the highest number of leading zeros will win 2 large pizzas.</p>
+        <div class="competition">Ready to mine pizza?</div>
+        <p>This competition draws inspiration from Bitcoin's proof-of-work system (thanks, Adam Back!). In Bitcoin, miners search for a nonce—a unique number—that, when combined with the previous block's hash and processed through a hash function, produces a result with a specific number of leading zeros. For this challenge, your task is to find a number (your nonce) that, when hashed with your email address using SHA-256, generates a hash with 'n' leading zeros. The winner will be determined on May 22, 2025, based on the email + nonce combination that achieves the highest number of leading zeros. In the case of a tie, the earliest submission wins. The prize? Two large pizzas!</p>
 
         <div class="input-fields">
             <input type="text" id="emailInput" class="input-box" placeholder="Your email">
@@ -209,9 +314,55 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="bitcoin-quotes">
+            <h2>Bitcoin related</h2>
+            <div class="quote-list">
+                <blockquote class="quote-item">
+                    <p>"It lives and breathes on the internet. It lives because it can pay people to keep it alive. It lives because it performs a useful service that people will pay it to perform. It lives because anyone, anywhere, can run a copy of its code. It lives because all the running copies are constantly talking to each other. It lives because if any one copy is corrupted it is discarded, quickly and without any fuss or muss. It lives because it is radically transparent: anyone can see its code and see exactly what it does."</p>
+                    <cite>— Ralph Merkle</cite>
+                </blockquote>
+                <blockquote class="quote-item">
+                    <p>"Think of Bitcoin as a bank account in the cloud, and it's completely decentralized: not the Swiss government, not the American government. It's all the participants in the network enforcing."</p>
+                    <cite>— Naval Ravikant</cite>
+                </blockquote>
+                <blockquote class="quote-item">
+                    <p>"I don't believe we shall ever have a good money again before we take the thing out of the hands of government, that is, we can't take it violently out of the hands of government, all we can do is by some sly roundabout way introduce something that they can't stop." The person did not say this for Bitcoin. But I believe Bitcoin is that sly roundabout way</p>
+                    <cite>— F.A. Hayek</cite>
+                </blockquote>
+                <blockquote class="quote-item">
+                    <p>"Bitcoin is a swarm of cyber hornets serving the goddess of wisdom, feeding on the fire of truth, exponentially growing ever smarter, faster, and stronger behind a wall of encrypted energy."</p>
+                    <cite>— Michael Saylor</cite>
+                </blockquote>
+                <blockquote class="quote-item">
+                    <p>"Bitcoin is mathematical purity. There can never be another Bitcoin."</p>
+                    <cite>— Steve Wozniak</cite>
+                </blockquote>
+                <blockquote class="quote-item">
+                    <p>"When COVID hit and the world shut down, everything changed. In Sri Lanka, the economy came to a standstill, and for the first time, I really started questioning everything — the people in power, the system we live under, and the way the world works. It became painfully clear: the people who govern us are corrupt, and the systems we've built are broken because the incentives are completely messed up.</br></br>
+
+                        I was angry. Frustrated. Lost. And that’s when I discovered Bitcoin.</br></br>
+                        
+                        It wasn’t just “internet money” or some investment trend — it actually made sense. It fixes the incentive problem at the core of all this madness. It doesn’t rely on trust in people; it relies on code, math, and truth.</br></br>
+                        
+                        For me, Bitcoin became something bigger than money. It became hope — hope for myself, for my family, and for the generations that come after me. In a world that feels like it’s falling apart, it’s the one thing that feels aligned with fairness, freedom, and the future."</p>
+                    <cite>— Tharsanan 😊</cite>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="note">
+            <h2>Note</h2>
+            <ul>
+                <li>Most people think that when Bitcoin is brought up in conversation, the person mentioning it is trying to scam them with a Ponzi scheme. However, Bitcoin is a 2-trillion-dollar asset and ranks among the top 10 largest assets in the world. Even if the Sri Lankan Central Bank were to buy Bitcoin with its entire available USD balance, it wouldn’t move the price in the slightest. Bitcoin doesn’t need you—you need Bitcoin.</li>
+                <li>Don’t invest in Bitcoin unless you truly understand it. Compared to other assets, Bitcoin is highly volatile because it’s both global and relatively new.</li>
+                <li>Bitcoin stands apart from other cryptocurrencies and shouldn’t be lumped together with them. Unlike the rest, which often claim to be decentralized but are actually centralized securities, Bitcoin is unique. It’s like the invention of the wheel—simple, effective, and foundational. Other cryptocurrencies, by contrast, are like attempts to reinvent the wheel in odd shapes, such as triangles or squares, that don’t quite work the same way.</li>
+            </ul>
+        </div>
     </div>
 
     <script>
+        var key
         const baseURL = 'https://hxa6dmqij2.execute-api.us-east-1.amazonaws.com'
         // Function to calculate SHA-256 hash client-side (for real-time display)
         async function sha256(str) {
@@ -299,7 +450,6 @@
             const email = emailInput.value.trim();
             const nonce = nonceInput.value.trim();
             
-
             if (email && nonce) {
                 const parsedNonce = parseInt(nonce);
                 if (isNaN(parsedNonce) || parsedNonce < 0) {
@@ -307,9 +457,12 @@
                     return;
                 }
 
-                fetch(baseURL + '/submit', {
+                fetch(baseURL + '/submit',
+                    {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json',
+                        'x-api-key': key
+                    },
                     body: JSON.stringify({ email, nonce })
                 })
                 .then(response => response.json())
@@ -326,11 +479,28 @@
                 alert('Please enter both an email and a positive nonce before submitting.');
             }
         });
-
+        function getApiKey() {
+            let apiKey = prompt("Please enter your API key:", "");
+            
+            if (apiKey === null) {
+                // User clicked cancel
+                return null;
+            } else if (apiKey.trim() === "") {
+                // User entered empty string
+                alert("API key cannot be empty. Please try again.");
+                return getApiKey(); // Recursive call to try again
+            } else {
+                // Valid API key entered
+                return apiKey.trim();
+            }
+        }
         // Function to update leaderboard from backend
         function updateLeaderboard() {
-            fetch(baseURL + '/leaderboard')
-                .then(response => response.json())
+            fetch(baseURL + '/leaderboard', {
+                headers: {
+                    'x-api-key': key
+                }
+            }).then(response => response.json())
                 .then(data => {
                     let html = '';
                     if (data.length === 0) {
@@ -352,7 +522,8 @@
                 })
                 .catch(error => console.error('Error fetching leaderboard:', error));
         }
-
+        key = getApiKey();
+        console.log(key);
         // Initial leaderboard load
         updateLeaderboard();
     </script>
